@@ -41,6 +41,10 @@ def savefig(fig, filepath):
         ans = input('   Do you want to continue? (y/n): ')
         if ans != 'y': return 0
     
+    if not filepath.endswith('.pkl'):
+        print('   Warning: file extension is not .pkl, changing to .pkl')
+        filepath = filepath + '.pkl'
+
     with open(filepath, "wb") as f:
         pickle.dump(fig, f, protocol=3)
     print(f'figure saved to {filepath}')

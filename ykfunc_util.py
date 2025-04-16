@@ -91,8 +91,50 @@ def list_dir(parentfolder, fullpath=False):
     List all directories in the given parent folder.
     If fullpath is True, return full paths of the directories.
     """
-    if fullpath:
-        return [os.path.join(parentfolder, folder) for folder in os.listdir(parentfolder) if os.path.isdir(os.path.join(parentfolder, folder))]
-    else:
-        return [folder for folder in os.listdir(parentfolder) if os.path.isdir(os.path.join(parentfolder, folder))]
+    dirlist = []
+    for folder in os.listdir(parentfolder):
+        if os.path.isdir(os.path.join(parentfolder, folder)):
+            if fullpath:
+                dirlist.append(os.path.join(parentfolder, folder))
+            else:
+                dirlist.append(folder)
+    return dirlist
+    #     if fullpath:
+    #         return [os.path.join(parentfolder, folder) for folder in os.listdir(parentfolder) if os.path.isdir(os.path.join(parentfolder, folder))]
+    #     else:
+    #         return [folder for folder in os.listdir(parentfolder) if os.path.isdir(os.path.join(parentfolder, folder))]
+    # # ### enddef list_dir
 # ### enddef list_dir
+
+
+def list_file(parentfolder, fullpath=False):
+    """
+    List all files in the given parent folder.
+    If fullpath is True, return full paths of the directories.
+    """
+    filelist = []
+    for file in os.listdir(parentfolder):
+        if os.path.isfile(os.path.join(parentfolder, file)):
+            if fullpath:
+                filelist.append(os.path.join(parentfolder, file))
+            else:
+                filelist.append(file)
+    return filelist
+# ### enddef list_file
+
+
+def get_files_with_extension(directory, extension, fullpath=False):
+    """
+    Get a list of files with a specific extension in a directory.
+    If fullpath is True, return full paths of the files.
+    """
+    extension = extension.lower()
+    file_list = []
+    for file in os.listdir(directory):
+        if os.path.isfile(os.path.join(directory, file)) and file.lower().endswith(extension):
+            if fullpath:
+                file_list.append(os.path.join(directory, file))
+            else:
+                file_list.append(file)
+    return file_list
+# ### enddef get_files_with_extension
