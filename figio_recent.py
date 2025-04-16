@@ -33,7 +33,7 @@ def openfig(filepaths_list):
     plt.close('all')
 # ### enddef openfig
 
-def savefig(fig, filepath):
+def savefig(fig, filepath, png=False):
     """
     Save a figure to a file.
     """
@@ -48,6 +48,12 @@ def savefig(fig, filepath):
     with open(filepath, "wb") as f:
         pickle.dump(fig, f, protocol=3)
     print(f'figure saved to {filepath}')
+
+    if png:
+        png_filepath = filepath.replace('.pkl', '.png')
+        fig.savefig(png_filepath, dpi=300, bbox_inches='tight')
+        # fig.savefig(png_filepath)
+        print(f'figure saved to {png_filepath}')
     return 1
 # ### enddef openfig
 
