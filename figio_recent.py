@@ -51,9 +51,49 @@ def savefig(fig, filepath, png=False):
 
     if png:
         png_filepath = filepath.replace('.pkl', '.png')
-        fig.savefig(png_filepath, dpi=300, bbox_inches='tight')
+        fig.savefig(png_filepath, bbox_inches='tight')
         # fig.savefig(png_filepath)
         print(f'figure saved to {png_filepath}')
     return 1
 # ### enddef openfig
 
+def csavefig(fig, filepath_without_ext, ext='pkl', verbose=True):
+    """
+    customized savefig function
+    Save a figure to a file with multiple formats.
+    <input>
+    fig: figure object to save
+    filepath_without_ext: str, file path without extension
+    ext: str or list of str of file extensions to save the figure as
+    verbose: bool, if True, print the file paths of saved figures
+
+    <output>
+    filepathlist: list of str, file paths of saved figures
+    """
+    filepathlist = []
+    if isinstance(ext, str):
+        ext = [ext]
+    else:
+        ext = ext
+    
+    for ext_ in ext:
+        if ext_.startswith('.'):
+            ext_ = ext_[1:]
+        filepath = filepath_without_ext + '.' + ext_
+
+        if ext_ == '.pkl':
+            if not check_mpl_version(warning=True):
+                ans = input('   Do you want to continue? (y/n): ')
+                if ans != 'y': return 0
+            with open(filepath, "wb") as f:
+                pickle.dump(fig, f, protocol=3)
+            if verbose: print(f'figure saved to {filepath}')
+            filepathlist.append(filepath)
+        else:
+            fig.savefig(filepath, format=ext_, bbox_inches='tight')
+            if verbose: print(f'figure saved to {filepath}')
+            filepathlist.append(filepath)
+        
+    return filepathlist
+# ### enddef openfig
+# fig.savefig("figure_output", format="svg")
