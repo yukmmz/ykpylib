@@ -81,7 +81,7 @@ def csavefig(fig, filepath_without_ext, ext='pkl', verbose=True):
             ext_ = ext_[1:]
         filepath = filepath_without_ext + '.' + ext_
 
-        if ext_ == '.pkl':
+        if ext_ == 'pkl':
             if not check_mpl_version(warning=True):
                 ans = input('   Do you want to continue? (y/n): ')
                 if ans != 'y': return 0
