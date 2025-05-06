@@ -71,4 +71,22 @@
 		"description": "Standard import modules and libraries"
 	},
 
+	"fig and axes with shared axis": {
+		"prefix": "figaxs",
+		"body": [
+			"fig, axs = plt.subplots(1, 2, sharex=True, sharey=True, figsize=figsize_from_pt(1200,600))",
+			"for ax in axs.ravel(): ax.set_box_aspect(3 / 4)"
+		],
+		"description": "fig and axes with shared axis"
+	},
+
+	"section": {
+		"prefix": "section",
+		"body": [
+			"################################",
+			"# %% $1",
+		],
+		"description": "section"
+	},
+
 }
